@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+
+<?php
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Console\App\Commands\UserDeveloperCommand;
+use Console\App\Commands\UserDesignerCommand;
+use Console\App\Commands\UserManagerCommand;
+use Console\App\Commands\UserTesterCommand;
+use Console\App\Commands\CanDeveloperCommand;
+
+$app = new Application();
+$app->add(new UserDeveloperCommand());
+$app->add(new UserDesignerCommand());
+$app->add(new UserManagerCommand());
+$app->add(new UserTesterCommand());
+$app->add(new CanDeveloperCommand());
+$app->run();
