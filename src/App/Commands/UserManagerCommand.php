@@ -2,7 +2,8 @@
 
 namespace Console\App\Commands;
 
-use Console\App\RulesHelper;
+use Console\App\WorksHelper;
+use Console\App\User;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,8 +18,10 @@ class UserManagerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $rules = RulesHelper::getRule('manager');
-        $output->writeln($rules);
+        $user = new User();
+        $user->work = 'manager';
+        $works = WorksHelper::getWorks($user);
+        $output->writeln($works);
         return 0;
     }
 }

@@ -1,7 +1,8 @@
 <?php
 namespace Console\App\Commands;
 
-use Console\App\RulesHelper;
+use Console\App\User;
+use Console\App\WorksHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,8 +17,11 @@ class UserDesignerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $rules = RulesHelper::getRule('designer');
-        $output->writeln($rules);
+        $user = new User();
+        $user->work = 'designer';
+        $works = WorksHelper::getWorks($user);
+        $output->writeln($works);
+
         return 0;
     }
 }

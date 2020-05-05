@@ -2,7 +2,8 @@
 
 namespace Console\App\Commands;
 
-use Console\App\RulesHelper;
+use Console\App\User;
+use Console\App\WorksHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,9 +21,12 @@ class CanTesterCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $work = $input->getArgument('work');
-        $rules = RulesHelper::canRule('tester', $work);
 
-        $output->writeln($rules ? 'true' : 'false');
+        $user = new User();
+        $user->work = 'tester';
+        $works = WorksHelper::canWorkThis($user, $work);
+        $output->writeln($works ? 'true' : 'false');
+
         return 0;
     }
 }
