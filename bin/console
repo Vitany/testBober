@@ -4,16 +4,21 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Console\App\Commands\UserDeveloperCommand;
-use Console\App\Commands\UserDesignerCommand;
-use Console\App\Commands\UserManagerCommand;
-use Console\App\Commands\UserTesterCommand;
-use Console\App\Commands\CanDeveloperCommand;
+use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
+use Console\App\Commands\UserCommand;
+use Console\App\Commands\CanCommand;
+
+$commandLoader = new FactoryCommandLoader([
+    'user:manager' => function () { return new UserCommand('user:manager', 'manager') ;},
+    'user:designer' => function () { return new UserCommand('user:designer', 'designer') ;},
+    'user:tester' => function () { return new UserCommand('user:tester', 'tester') ;},
+    'user:developer' => function () { return new UserCommand('user:developer', 'developer') ;},
+    'can:developer' => function () { return new CanCommand('can:developer', 'developer') ;},
+    'can:manager' => function () { return new CanCommand('can:manager', 'manager') ;},
+    'can:designer' => function () { return new CanCommand('can:designer', 'designer') ;},
+    'can:tester' => function () { return new CanCommand('can:tester', 'tester') ;},
+]);
 
 $app = new Application();
-$app->add(new UserDeveloperCommand());
-$app->add(new UserDesignerCommand());
-$app->add(new UserManagerCommand());
-$app->add(new UserTesterCommand());
-$app->add(new CanDeveloperCommand());
+$app->setCommandLoader($commandLoader);
 $app->run();
